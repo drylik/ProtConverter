@@ -5,12 +5,12 @@
          version="3.1">
 
     <servlet>
-        <servlet-name>mainServlet</servlet-name>
-        <servlet-class>ru.novikov.MainServlet</servlet-class>
+        <servlet-name>xmlParserServlet</servlet-name>
+        <servlet-class>ru.novikov.http.XmlParserServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>mainServlet</servlet-name>
+        <servlet-name>xmlParserServlet</servlet-name>
         <url-pattern></url-pattern>
     </servlet-mapping>
 </web-app>

@@ -5,9 +5,32 @@
   <title>XML to JSON Converter</title>
 </head>
 <body>
-<form method="post">
-<textarea name="xml" rows="50" cols="100">Simple textarea</textarea>
-<input type="submit" value="Submit">
-</form>
+<label for="xml">Input XML Text</label><br>
+<textarea id="xml" name="xml" rows="50" cols="100">Simple textarea</textarea>
+<button id="submit" onclick="">Submit</button>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#submit").click(function() {
+            servletCall();
+        });
+
+    });
+    function servletCall() {
+        var info = $('#xml').val();
+
+        $.ajax({
+            type: "POST",
+            url: '/',
+            data: {xml: info},
+            success : function(){
+                window.location.href = "Url to redirect here in the success option";
+            },
+            error:function(){
+                window.location.href = "error.html";
+            }
+        });
+    };
+</script>
 </body>
 </html>
