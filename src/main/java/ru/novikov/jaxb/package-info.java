@@ -1,7 +1,7 @@
 @XmlSchema(
         xmlns = {
-                @XmlNs(namespaceURI = "wsapi:Payment", prefix = "urn"),
-                @XmlNs(namespaceURI = "wsapiUtils", prefix = "uts")
+                @XmlNs(namespaceURI = "wsapi:Utils", prefix = "uts"),
+                @XmlNs(namespaceURI = "wsapi:Payment", prefix = "urn")
         },
         elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED
 )
