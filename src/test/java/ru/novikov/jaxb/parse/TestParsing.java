@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.novikov.jaxb.*;
 
+import javax.xml.bind.JAXBException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +50,7 @@ public class TestParsing {
     }
 
     @Test
-    public void marshallingTest() {
+    public void marshallingTest() throws JAXBException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         Parser parser = new JaxbParser();
         parser.saveObject(out, envelope);
@@ -58,7 +59,7 @@ public class TestParsing {
     }
 
     @Test
-    public void unmarshallingTest() throws IOException {
+    public void unmarshallingTest() throws IOException, JAXBException {
         InputStream in = IOUtils.toInputStream(xml, StandardCharsets.UTF_8);
         Parser parser = new JaxbParser();
         Envelope env = (Envelope) parser.getObject(in, Envelope.class);

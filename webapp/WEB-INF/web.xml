@@ -8,9 +8,9 @@
         <servlet-name>xmlParserServlet</servlet-name>
         <servlet-class>ru.novikov.http.XmlParserServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>xmlParserServlet</servlet-name>
         <url-pattern></url-pattern>
     </servlet-mapping>
+
 </web-app>

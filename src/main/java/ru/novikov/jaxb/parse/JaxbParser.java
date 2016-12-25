@@ -15,18 +15,13 @@ public class JaxbParser implements Parser {
 
     private static final Logger log = LogManager.getLogger(JaxbParser.class);
 
-    public Object getObject(InputStream in, Class c) {
+    public Object getObject(InputStream in, Class c) throws JAXBException {
         JAXBContext context;
         Object object;
-        try {
-            context = JAXBContext.newInstance(c);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            object = unmarshaller.unmarshal(in);
-            return object;
-        } catch (JAXBException e) {
-            log.log(Level.ERROR, "Error during unmarshalling", e);
-            return null;
-        }
+        context = JAXBContext.newInstance(c);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        object = unmarshaller.unmarshal(in);
+        return object;
     }
 
     public void saveObject(OutputStream out, Object o) {

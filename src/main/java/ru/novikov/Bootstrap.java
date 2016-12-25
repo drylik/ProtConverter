@@ -10,14 +10,21 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.util.Properties;
 
 public class Bootstrap {
 
     private static final Logger log = LogManager.getLogger(Bootstrap.class);
 
+    private static Properties props;
+    public static Properties getProps() {
+        return props;
+    }
+
     public static void main(String[] args) throws Exception {
-        Properties props = readFromFile();
+        props = readFromFile();
         assert props != null;
         Server server = new Server(Integer.parseInt(props.getProperty("http.port")));
 

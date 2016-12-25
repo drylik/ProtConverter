@@ -23,11 +23,9 @@
             type: "POST",
             url: '/',
             data: {xml: info},
-            success : function(){
-                window.location.href = "success.html";
-            },
-            error:function(){
-                window.location.href = "error.html";
+            dataType: "json",
+            success : function(response){
+                window.location.href = response.redirect;
             }
         });
     };
