@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.JAXBException;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -73,14 +72,13 @@ public class XmlParserServlet extends HttpServlet {
         byte[] header = ByteBuffer.allocate(4).putInt(0xFFBBCCDD).array();
         byte[] length = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(jsonString.length()).array();
         byte[] json = jsonString.getBytes(StandardCharsets.UTF_16LE);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        out.write(header);
-        out.write(length);
-        out.write(json);
         log.log(Level.INFO, "header: " + DatatypeConverter.printHexBinary(header));
         log.log(Level.INFO, "length: " + DatatypeConverter.printHexBinary(length));
         log.log(Level.INFO, "json: " + DatatypeConverter.printHexBinary(json));
         s = new Socket(addr, port);
-        s.getOutputStream().write(out.toByteArray());
+        s.getOutputStream().write(header);
+        s.getOutputStream().write(length);
+        s.getOutputStream().write(json);
+        s.getOutputStream().flush();
     }
 }
