@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import ru.novikov.Bootstrap;
 import ru.novikov.jaxb.Envelope;
-import ru.novikov.jaxb.parse.JaxbParser;
+import ru.novikov.jaxb.parse.impl.JaxbParser;
 import ru.novikov.jaxb.parse.Parser;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.net.Socket;
@@ -36,17 +37,23 @@ public class XmlParserServlet extends HttpServlet {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(env);
             log.log(Level.INFO, jsonString);
-            //sendViaTCP(jsonString, Bootstrap.getProps().getProperty("tcp.dest.addr"), Integer.parseInt(Bootstrap.getProps().getProperty("tcp.dest.port")));
-            jo.put("redirect", "success");
+            sendViaTCP(jsonString, Bootstrap.getProps().getProperty("tcp.dest.addr"), Integer.parseInt(Bootstrap.getProps().getProperty("tcp.dest.port")));
+            jo.put("redirect", "success.html");
         } catch (JAXBException e) {
             log.log(Level.ERROR, "Error during unmarshalling", e);
             jo.put("redirect", "error");
+            HttpSession session = request.getSession(true);
+            session.setAttribute("Error", e);
         } catch (JsonProcessingException e) {
             log.log(Level.ERROR, "Error during parsing to JSON", e);
             jo.put("redirect", "error");
-        /*} catch (IOException e) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("Error", e);
+        } catch (IOException e) {
             log.log(Level.ERROR, e);
-            jo.put("redirect", "error");*/
+            jo.put("redirect", "error");
+            HttpSession session = request.getSession(true);
+            session.setAttribute("Error", e);
         } finally {
             response.getWriter().println(jo);
         }

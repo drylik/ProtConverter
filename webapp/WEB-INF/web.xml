@@ -13,4 +13,12 @@
         <url-pattern></url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>errorServlet</servlet-name>
+        <servlet-class>ru.novikov.http.ErrorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>errorServlet</servlet-name>
+        <url-pattern>error</url-pattern>
+    </servlet-mapping>
 </web-app>
